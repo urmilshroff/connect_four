@@ -5,13 +5,13 @@ class Board
 {
 public:
     
-int rowPos,colPos,rowPosX,colPosX,rowPosO,colPosO,board[6][7]; //board of 6 rows and 7 columns
-bool isFull=false;
+int player,rowPos,colPos,rowPosX,colPosX,rowPosO,colPosO,board[6][7]; //board of 6 rows and 7 columns
+bool isFull;
 
 Board()
 {
     cout<<"Let's play!"<<endl; //2 players for now
-    display(5,5,4,4);
+    display(NULL,NULL,NULL,NULL);
     updater();
 }
 
@@ -51,9 +51,9 @@ int display(int rowPosX,int colPosX,int rowPosO,int colPosO)
 
 
 
-int playerChoice()
+int playerChoice(int player)
 {
-    cout<<"Enter the column you wish to play in:"<<endl;
+    cout<<"Player"<<player<<": Enter the column you wish to play in:"<<endl;
     cin>>colPos;
     return colPos;
 }    
@@ -65,6 +65,6 @@ int playerChoice()
 
 int main()
 {
-    cout<<"WELCOME TO CONNECT FOUR BY URMIL SHROFF!"<<endl<<endl;
+    cout<<"Welcome to CONNECT FOUR by Urmil Shroff!"<<endl<<endl;
     Board obj;
 }
