@@ -20,11 +20,11 @@ Board()
     {
         for(colPos=0;colPos<7;colPos++)
         {
-            board[rowPos][colPos]="_";
+            board[rowPos][colPos]="_ ";
         }
     } //initializes empty board
 
-    display(board[6][7]); //initially the board is empty
+    display(board); //initially the board is empty
     //updater(p1,p2,board);
 }
 
@@ -48,10 +48,10 @@ int playerChoice(string player)
 
 
 
-void display(string board)
+void display(string board[6][7])
 {
 
-    cout<<"Current board looks like this:"<<endl;
+    cout<<"\nCurrent board looks like this:"<<endl;
 
     for(rowPos=0;rowPos<6;rowPos++)
     {
@@ -62,7 +62,7 @@ void display(string board)
         cout<<endl;
     }
     
-    cout<<"1 2 3 4 5 6 7"<<endl; //positional indicators for each column
+    cout<<"1 2 3 4 5 6 7"<<endl<<endl; //positional indicators for each column
 }
 
 };
