@@ -9,13 +9,13 @@ int rowPos,colPos;
 Board()
 {
     string board[6][7]; //board of 6 rows and 7 columns
-    string player[2]; //array of 2 players
+    string playerName[2];
     
     cout<<"Let's play!"<<endl; //2 players for now (TODO: AI)
     cout<<"Enter Player 1 name:"<<endl;
-    cin>>player[0]; //player 1
+    cin>>playerName[0]; //player 1
     cout<<"Enter Player 2 name:"<<endl;
-    cin>>player[1]; //player 2
+    cin>>playerName[1]; //player 2
     
     for(rowPos=0;rowPos<6;rowPos++)
     {
@@ -26,31 +26,32 @@ Board()
     } //initializes empty board
 
     display(board);
-    updater(board,player);
+    insert(board,playerName);
 }
 
 
 
 
 
-
-void updater(string board[6][7],string player[2]) //the main logic lies here
+void insert(string board[6][7],string playerName[2]) //the main logic lies here
 {
     int i,p,colPos[2];
-    rowPos=0
-    p=0
+    rowPos=5;
+    p=0;
     
     for(i=0;i<6;i++)
     {
-        colPos[p]=playerChoice(player[p],p); //player's choice goes into board
+        colPos[p]=playerChoice(playerName[p]); //player's choice goes into board
         
         if(p==0)
         {
-            board[rowPos+i][colPos[p]]="X";
+            board[rowPos-i][colPos[p]]="X";
+            p=1;
         }
         else if(p==1)
         {
             board[rowPos+i][colPos[p]]="O";
+            p=0;
         }
         display(board);
     }
@@ -58,14 +59,10 @@ void updater(string board[6][7],string player[2]) //the main logic lies here
 }
 
 
-
-
-
-
-int playerChoice(string player[2],int playerId)
+int playerChoice(string player) //try renaming to playerName later
 {
     int colPos;
-    cout<<"It's your turn, "<<player[playerId]<<":"<<endl;
+    cout<<"It's your turn, "<<player<<":"<<endl;
     cin>>colPos;
     return colPos-1; //because array position counting starts from 0
 } 
