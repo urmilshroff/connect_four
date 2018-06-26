@@ -31,24 +31,33 @@ Board()
 
 
 
-
-
 void insert(string board[6][7],string playerName[2]) //the main logic lies here
 {
-    int i,p=0,rowPos=5,colPos;
+    int i,p=0,rowPos,colPos;
     
     for(i=0;i<6;i++)
     {
         colPos=playerChoice(playerName[p]); //player's choice goes into board
         
-        if(p==0)
+        if(board[5][colPos]=="_ ")
         {
-            board[rowPos-i][colPos]="X ";
+            rowPos=5;
+        }
+        
+        while(board[rowPos][colPos]!="_ ") //if someone has already played in that position
+        {
+            rowPos--; //keeps going up up up!
+        }
+        
+        if(p==0) //if player 1 then use X
+        {
+            board[rowPos][colPos]="X ";
             p=1;
         }
-        else if(p==1)
-        {
-            board[rowPos-i][colPos]="O ";
+        
+        else if(p==1) //if player 2 then use O
+        {    
+            board[rowPos][colPos]="O ";
             p=0;
         }
         display(board);
@@ -57,10 +66,12 @@ void insert(string board[6][7],string playerName[2]) //the main logic lies here
 }
 
 
+
 int playerChoice(string player) //try renaming to playerName later
 {
     int colPos;
-    cout<<"It's your turn, "<<player<<":"<<endl;
+    
+    cout<<"It's your turn, "<<player<<"! Which column do you want to play in?"<<endl;
     cin>>colPos;
     return colPos-1; //because array position counting starts from 0
 } 
