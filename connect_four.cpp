@@ -4,10 +4,10 @@ using namespace std;
 class Board
 {
 public:
-int rowPos,colPos;
 
 Board()
 {
+    int rowPos,colPos;
     string board[6][7]; //board of 6 rows and 7 columns
     string playerName[2];
     
@@ -35,22 +35,20 @@ Board()
 
 void insert(string board[6][7],string playerName[2]) //the main logic lies here
 {
-    int i,p,colPos[2];
-    rowPos=5;
-    p=0;
+    int i,p=0,rowPos=5,colPos;
     
     for(i=0;i<6;i++)
     {
-        colPos[p]=playerChoice(playerName[p]); //player's choice goes into board
+        colPos=playerChoice(playerName[p]); //player's choice goes into board
         
         if(p==0)
         {
-            board[rowPos-i][colPos[p]]="X ";
+            board[rowPos-i][colPos]="X ";
             p=1;
         }
         else if(p==1)
         {
-            board[rowPos+i][colPos[p]]="O ";
+            board[rowPos-i][colPos]="O ";
             p=0;
         }
         display(board);
@@ -70,7 +68,8 @@ int playerChoice(string player) //try renaming to playerName later
 
 void display(string board[6][7])
 {
-
+    int rowPos,colPos;
+    
     cout<<"\nCurrent board looks like this:"<<endl;
 
     for(rowPos=0;rowPos<6;rowPos++)
