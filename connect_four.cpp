@@ -45,12 +45,12 @@ void insert(string board[6][7],string playerName[2]) //the main logic lies here
         
         if(p==0)
         {
-            board[rowPos-i][colPos[p]]="X";
+            board[rowPos-i][colPos[p]]="X ";
             p=1;
         }
         else if(p==1)
         {
-            board[rowPos+i][colPos[p]]="O";
+            board[rowPos+i][colPos[p]]="O ";
             p=0;
         }
         display(board);
