@@ -26,16 +26,17 @@ Board()
     } //initializes empty board
 
     display(board);
-    insert(board,playerName);
+    updater(board,playerName);
 }
 
 
 
-void insert(string board[6][7],string playerName[2]) //the main logic lies here
+void updater(string board[6][7],string playerName[2]) //updates board with new moves
 {
-    int i,p=0,rowPos,colPos;
+    int i,p=0,rowPos,colPos,winner;
+    bool someWon; //by default it is false, nobody has won yet
     
-    for(i=0;i<6;i++)
+    while(someWon!=true) //when somebody wins, loop breaks out
     {
         colPos=playerChoice(playerName[p]); //player's choice goes into board
         
@@ -52,13 +53,21 @@ void insert(string board[6][7],string playerName[2]) //the main logic lies here
         if(p==0) //if player 1 then use X
         {
             board[rowPos][colPos]="X ";
-            p=1;
+            someWon=checker(board);
+            if(someWon!=true)
+            {
+                p=1;
+            }
         }
         
         else if(p==1) //if player 2 then use O
         {    
             board[rowPos][colPos]="O ";
-            p=0;
+            someWon=checker(board);
+            if(someWon!=true)
+            {
+                p=0;
+            }
         }
         display(board);
     }
@@ -66,8 +75,17 @@ void insert(string board[6][7],string playerName[2]) //the main logic lies here
 }
 
 
+bool checker(string board[6][7]) //the main logic lies here
+{
+    return false;
+}
 
-int playerChoice(string player) //try renaming to playerName later
+
+
+
+
+
+int playerChoice(string player) //try renaming parameter to playerName later
 {
     int colPos;
     
@@ -77,7 +95,7 @@ int playerChoice(string player) //try renaming to playerName later
 } 
 
 
-void display(string board[6][7])
+void display(string board[6][7]) //simply displays current state of board
 {
     int rowPos,colPos;
     
