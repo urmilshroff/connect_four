@@ -88,9 +88,23 @@ bool checker(string board[6][7]) //the main logic lies here
 int playerChoice(string player) //try renaming parameter to playerName later
 {
     int colPos;
+    bool validInput;
     
     cout<<"It's your turn, "<<player<<"! Which column do you want to play in?"<<endl;
-    cin>>colPos;
+    while(validInput!=true) //when input is valid it breaks out
+    {
+        cin>>colPos;
+        
+        if(colPos<1 || colPos>7)
+        {
+            cout<<"Sorry, please enter a valid column number between 1 and 7:"<<endl;
+        }
+        else
+        {
+            validInput=true;
+        }
+    }
+    
     return colPos-1; //because array position counting starts from 0
 } 
 
