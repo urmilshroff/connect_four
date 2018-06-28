@@ -34,9 +34,9 @@ Board()
 void updater(string board[6][7],string playerName[2]) //updates board with new moves
 {
     int i,p=0,rowPos[7],colPos,winner;
-    bool someWon; //by default it is false, nobody has won yet
+    bool someWon=false; //by default it is false - nobody has won yet
     
-    while(someWon!=true) //when somebody wins, loop breaks out
+    while(true) //when somebody wins, loop breaks out
     {
         colPos=playerChoice(playerName[p]); //player's choice goes into board
         
@@ -47,6 +47,11 @@ void updater(string board[6][7],string playerName[2]) //updates board with new m
         
         while(board[rowPos[colPos]][colPos]!="_ ") //if someone has already played in that position
         {
+            if(rowPos[colPos]==0)
+            {
+                cout<<"Whups, this row is now full!"<<endl;
+                break;
+            }
             rowPos[colPos]--; //keeps going up up up!
         }
         
@@ -54,7 +59,11 @@ void updater(string board[6][7],string playerName[2]) //updates board with new m
         {
             board[rowPos[colPos]][colPos]="X ";
             someWon=checker(board);
-            if(someWon!=true)
+            if(someWon==true)
+            {
+                break;
+            }
+            else
             {
                 p=1;
             }
@@ -64,7 +73,11 @@ void updater(string board[6][7],string playerName[2]) //updates board with new m
         {    
             board[rowPos[colPos]][colPos]="O ";
             someWon=checker(board);
-            if(someWon!=true)
+            if(someWon==true)
+            {
+                break;
+            }
+            else
             {
                 p=0;
             }
@@ -73,6 +86,9 @@ void updater(string board[6][7],string playerName[2]) //updates board with new m
     }
     
 }
+
+
+
 
 
 bool checker(string board[6][7]) //the main logic lies here
@@ -90,7 +106,21 @@ int playerChoice(string player) //try renaming parameter to playerName later
     int colPos;
     
     cout<<"It's your turn, "<<player<<"! Which column do you want to play in?"<<endl;
-    cin>>colPos;
+    
+    while(true) //infinite loop
+    {
+        cin>>colPos;
+        
+        if(colPos<1 || colPos>7)
+        {
+            cout<<"Sorry, please enter a valid column number between 1 & 7!"<<endl;
+        }
+        else
+        {
+            break;
+        }
+    }
+    
     return colPos-1; //because array position counting starts from 0
 } 
 
