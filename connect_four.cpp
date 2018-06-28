@@ -5,23 +5,22 @@ class Board
 {
 public:
 
+int i,j,p,colPos;
+string board[6][7],playerName[2]; //board of 6 rows and 7 columns
+
 Board()
 {
-    int rowPos,colPos,p;
-    string board[6][7]; //board of 6 rows and 7 columns
-    string playerName[2];
-    
-    cout<<"Let's play!"<<endl; //2 players for now (TODO: AI)
-    cout<<"Enter Player 1 name:"<<endl;
+
+    cout<<"\nEnter Player 1 name:"<<endl;
     cin>>playerName[0]; //player 1
-    cout<<"Enter Player 2 name:"<<endl;
+    cout<<"\nEnter Player 2 name:"<<endl;
     cin>>playerName[1]; //player 2
     
-    for(rowPos=0;rowPos<6;rowPos++)
+    for(i=0;i<6;i++)
     {
-        for(colPos=0;colPos<7;colPos++)
+        for(j=0;j<7;j++)
         {
-            board[rowPos][colPos]="_ ";
+            board[i][j]="_ ";
         }
     } //initializes empty board
 
@@ -32,26 +31,22 @@ Board()
 
 void updater(string board[6][7],string playerName[2],int p) //updates board with new moves
 {
-    int i,rowPos[7],colPos,winner;
-    bool someWon=false; //by default it is false - nobody has won yet
-    bool isFull=false;
+    int rowPos[7],winner;
     
     while(true) //when somebody wins, loop should break out
     {
         colPos=playerChoice(playerName,p); //player's choice goes into board
-        isFull=isFullChecker(board,playerName,rowPos,colPos,p); //checks if the column the user is trying to play in is full or not
         
-        if(isFull==true)
+        if(isFull(board,playerName,rowPos,colPos,p)==true)
         {
             continue; //skips everything below and comes back to loop with same player id
         }
         
-        if(p==0) //if Player 1 then use X
+        if(p==0) //if Player 1 then use "X"
         {
             board[rowPos[colPos]][colPos]="X ";
-            someWon=winnerChecker(board);
             
-            if(someWon==true)
+            if(someWon(board)==true)
             {
                 break;
             }
@@ -61,12 +56,11 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
             }
         }
         
-        else if(p==1) //if Player 2 then use O
+        else if(p==1) //if Player 2 then use "O"
         {    
             board[rowPos[colPos]][colPos]="O ";
-            someWon=winnerChecker(board);
             
-            if(someWon==true)
+            if(someWon(board)==true)
             {
                 break;
             }
@@ -83,15 +77,13 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
 
 void display(string board[6][7]) //simply displays current state of board
 {
-    int rowPos,colPos;
-    
     cout<<"\nCurrent board looks like this:"<<endl;
 
-    for(rowPos=0;rowPos<6;rowPos++)
+    for(i=0;i<6;i++)
     {
-        for(colPos=0;colPos<7;colPos++)
+        for(j=0;j<7;j++)
         {
-            cout<<board[rowPos][colPos];
+            cout<<board[i][j];
         }
         cout<<endl;
     }
@@ -100,14 +92,14 @@ void display(string board[6][7]) //simply displays current state of board
 }
 
 
-bool winnerChecker(string board[6][7]) //the main logic lies here
+bool someWon(string board[6][7]) //the main logic lies here
 {
     //TODO
     return false;
 }
 
 
-bool isFullChecker(string board[6][7],string playerName[2],int rowPos[7],int colPos,int p)
+bool isFull(string board[6][7],string playerName[2],int rowPos[7],int colPos,int p)
 {
     if(board[5][colPos]=="_ ") //if no insert in that column yet
     {
@@ -129,14 +121,27 @@ bool isFullChecker(string board[6][7],string playerName[2],int rowPos[7],int col
 
 
 int playerChoice(string playerName[2],int p)
-{
-    int colPos;
-    
+{    
     cout<<"\nIt's your turn, "<<playerName[p]<<"! Which column do you want to play in?"<<endl;
     
-    while(true) //infinite loop
-    {
-        cin>>colPos;
+    while(true)
+    {    
+        while(true)
+        {
+            cin>>colPos;
+            
+            if(cin.fail())
+            {
+                cin.clear();
+                cin.ignore();
+                cout<<"\nSorry, "<<playerName[p]<<" - please enter a valid column number between 1 & 7!"<<endl;
+            }
+            
+            else
+            {
+                break;
+            }
+        }
         
         if(colPos<1 || colPos>7)
         {
@@ -157,7 +162,7 @@ int playerChoice(string playerName[2],int p)
 
 int main()
 {
-    cout<<"\nWelcome to CONNECT FOUR by Urmil Shroff!\n"<<endl;
+    cout<<"\nWelcome to CONNECT FOUR by Urmil Shroff!"<<endl;
     Board obj;
     return 0;
 }
