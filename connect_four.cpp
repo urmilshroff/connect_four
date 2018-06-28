@@ -7,7 +7,7 @@ public:
 
 Board()
 {
-    int rowPos,colPos;
+    int rowPos,colPos,p;
     string board[6][7]; //board of 6 rows and 7 columns
     string playerName[2];
     
@@ -26,39 +26,29 @@ Board()
     } //initializes empty board
 
     display(board);
-    updater(board,playerName);
+    updater(board,playerName,0);
 }
 
 
 
-void updater(string board[6][7],string playerName[2]) //updates board with new moves
+void updater(string board[6][7],string playerName[2],int p) //updates board with new moves
 {
-    int i,p=0,rowPos[7],colPos,winner;
+    int i,rowPos[7],colPos,winner;
     bool someWon=false; //by default it is false - nobody has won yet
+    bool isFull=false;
     
     while(true) //when somebody wins, loop breaks out
     {
         colPos=playerChoice(playerName[p]); //player's choice goes into board
         
-        if(board[5][colPos]=="_ ") //if no insert in that column yet
+        while()
         {
-            rowPos[colPos]=5;
+        isFull=isFullChecker(board,playerName,rowPos,colPos,p);
         }
-        
-        while(board[rowPos[colPos]][colPos]!="_ ") //if someone has already played in that position
-        {
-            if(rowPos[colPos]==0)
-            {
-                cout<<"Whups, this row is now full!"<<endl;
-                break;
-            }
-            rowPos[colPos]--; //keeps going up up up!
-        }
-        
         if(p==0) //if player 1 then use X
         {
             board[rowPos[colPos]][colPos]="X ";
-            someWon=checker(board);
+            someWon=winnerChecker(board);
             if(someWon==true)
             {
                 break;
@@ -72,7 +62,7 @@ void updater(string board[6][7],string playerName[2]) //updates board with new m
         else if(p==1) //if player 2 then use O
         {    
             board[rowPos[colPos]][colPos]="O ";
-            someWon=checker(board);
+            someWon=winnerChecker(board);
             if(someWon==true)
             {
                 break;
@@ -91,12 +81,31 @@ void updater(string board[6][7],string playerName[2]) //updates board with new m
 
 
 
-bool checker(string board[6][7]) //the main logic lies here
+bool winnerChecker(string board[6][7]) //the main logic lies here
 {
     return false;
 }
 
 
+bool isFullChecker(string board[6][7],string playerName[2],int rowPos[7],int colPos,int p)
+{
+    if(board[5][colPos]=="_ ") //if no insert in that column yet
+    {
+        rowPos[colPos]=5;
+    }
+    
+    while(board[rowPos[colPos]][colPos]!="_ ") //if someone has already played in that position
+    {
+        if(rowPos[colPos]==0)
+        {
+            cout<<"\nSorry, "<<playerName[p]<<" - this row is already full!"<<endl;
+            return true;
+            break;
+        }
+        rowPos[colPos]--; //keeps going up up up!
+    }
+    return false;
+}
 
 
 
@@ -105,7 +114,7 @@ int playerChoice(string player) //try renaming parameter to playerName later
 {
     int colPos;
     
-    cout<<"It's your turn, "<<player<<"! Which column do you want to play in?"<<endl;
+    cout<<"\nIt's your turn, "<<player<<"! Which column do you want to play in?"<<endl;
     
     while(true) //infinite loop
     {
@@ -140,7 +149,7 @@ void display(string board[6][7]) //simply displays current state of board
         cout<<endl;
     }
     
-    cout<<"1 2 3 4 5 6 7"<<endl<<endl; //positional indicators for each column
+    cout<<"1 2 3 4 5 6 7"<<endl; //positional indicators for each column
 }
 
 };
