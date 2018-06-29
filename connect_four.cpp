@@ -71,7 +71,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
         
         display(board);
     }
-    
+
     cout<<"Congratulations, "<<playerName[p]<<"! You won!"<<endl;
 }
 
@@ -93,17 +93,45 @@ void display(string board[6][7]) //simply displays current state of board
 }
 
 
-bool someWon(string board[6][7],int rowPos,int colPos,string playerName[2],int p) //the main logic lies here
+bool someWon(string board[6][7],int rowPos,int colPos,string playerName[2],int p) //returns true if there is a four in a row
 {
-    bool fourFound=false;
-
-    if(p==0)
+    if(verticalChecker(board,rowPos[colPos],colPos,playerName,p)==true)
     {
-        for(i=0;i<6;i++)
-        {
-            if(board[rowPos][colPos]==board[rowPos-i][colPos])
-        }
+        return true;
     }
+
+    else if(horizontalChecker(board,rowPos[colPos],colPos,playerName,p)==true)
+    {
+        return true;
+    }
+
+    else if(diagonalChecker(board,rowPos[colPos],colPos,playerName,p)==true)
+    {
+        return true;
+    }
+
+    else
+    {
+        return false;
+    }
+}
+
+
+bool verticalChecker(string board[6][7],int rowPos,int colPos,string playerName[2],int p)
+{
+
+}
+
+
+bool horizontalChecker(string board[6][7],int rowPos,int colPos,string playerName[2],int p)
+{
+    
+}
+
+
+bool diagonalChecker(string board[6][7],int rowPos,int colPos,string playerName[2],int p)
+{
+    
 }
 
 
