@@ -10,7 +10,6 @@ string board[6][7],playerName[2]; //board of 6 rows and 7 columns
 
 Board()
 {
-
     cout<<"\nEnter Player 1 name:"<<endl;
     cin>>playerName[0]; //player 1
     cout<<"\nEnter Player 2 name:"<<endl;
@@ -33,7 +32,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
 {
     int rowPos[7],winner;
     
-    while(true) //when somebody wins, loop should break out
+    while(true) //when somebody wins, this loop should break out
     {
         colPos=playerChoice(playerName,p); //player's choice goes into board
         
@@ -46,7 +45,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
         {
             board[rowPos[colPos]][colPos]="X ";
             
-            if(someWon(board)==true)
+            if(someWon(board,rowPos[colPos],colPos,playerName,p)==true)
             {
                 break;
             }
@@ -60,7 +59,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
         {    
             board[rowPos[colPos]][colPos]="O ";
             
-            if(someWon(board)==true)
+            if(someWon(board,rowPos[colPos],colPos,playerName,p)==true)
             {
                 break;
             }
@@ -72,6 +71,8 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
         
         display(board);
     }
+    
+    cout<<"Congratulations, "<<playerName[p]<<"! You won!"<<endl;
 }
 
 
@@ -92,10 +93,17 @@ void display(string board[6][7]) //simply displays current state of board
 }
 
 
-bool someWon(string board[6][7]) //the main logic lies here
+bool someWon(string board[6][7],int rowPos,int colPos,string playerName[2],int p) //the main logic lies here
 {
-    //TODO
-    return false;
+    bool fourFound=false;
+
+    if(p==0)
+    {
+        for(i=0;i<6;i++)
+        {
+            if(board[rowPos][colPos]==board[rowPos-i][colPos])
+        }
+    }
 }
 
 
