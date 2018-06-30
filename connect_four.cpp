@@ -117,21 +117,57 @@ bool someWon(string board[6][7],int rowPos,int colPos,string playerName[2],int p
 }
 
 
-bool verticalChecker(string board[6][7],int rowPos,int colPos,string playerName[2],int p)
+bool verticalChecker(string board[6][7],string rowPos,int colPos,string playerName[2],int p)
 {
-
+    return false;
 }
 
 
-bool horizontalChecker(string board[6][7],int rowPos,int colPos,string playerName[2],int p)
+bool horizontalChecker(string board[6][7],string rowPos,int colPos,string playerName[2],int p)
 {
-    
+    int rowCount=1;
+
+    if(board[rowPos][colPos]==board[rowPos][colPos+1]) //going right
+    {
+        rowCount++;
+        if(board[rowPos][colPos]==board[rowPos][colPos+2])
+        {
+            rowCount++;
+            if(board[rowPos][colPos]==board[rowPos][colPos+3])
+            {
+                rowCount++;
+            }
+        }
+    }
+
+    if(board[rowPos][colPos]==board[rowPos][colPos-1]) //going left
+    {
+        rowCount++;
+        if(board[rowPos][colPos]==board[rowPos][colPos-2])
+        {
+            rowCount++;
+            if(board[rowPos][colPos]==board[rowPos][colPos-3])
+            {
+                rowCount++;
+            }
+        }
+    }
+
+    if(rowCount>=4)
+    {
+        return true;
+    }
+
+    else
+    {
+        return false;
+    }
 }
 
 
-bool diagonalChecker(string board[6][7],int rowPos,int colPos,string playerName[2],int p)
+bool diagonalChecker(string board[6][7],string rowPos,int colPos,string playerName[2],int p)
 {
-    
+    return false;
 }
 
 
