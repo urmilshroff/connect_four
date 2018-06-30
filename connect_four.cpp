@@ -47,6 +47,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
             
             if(someWon(board,rowPos,colPos,playerName,p)==true) //rowPos is an integer array of size 7
             {
+                display(board);
                 break;
             }
             else
@@ -61,6 +62,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
             
             if(someWon(board,rowPos,colPos,playerName,p)==true)
             {
+                display(board);
                 break;
             }
             else
@@ -68,11 +70,11 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
                 p=0;
             }
         }
-        
+
         display(board);
     }
 
-    cout<<"Congratulations, "<<playerName[p]<<"! You won!"<<endl;
+    cout<<"Congratulations, "<<playerName[p]<<"! Looks like you won!"<<endl;
 }
 
 
@@ -120,7 +122,53 @@ bool someWon(string board[6][7],int rowPos[7],int colPos,string playerName[2],in
 
 bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
-    return false;
+    int colCount=1;
+
+    if(rowPos[colPos]!=0) //can go up as long as the current row is not the edge
+    {
+        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]-1][colPos]) //going up
+        {
+            colCount++;
+            if(rowPos[colPos]-1!=0)
+            {
+                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]-2][colPos])
+                {
+                    colCount++;
+                    if(rowPos[colPos]-2!=0)
+                    {
+                        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]-3][colPos])
+                        {
+                            cout<<"HIHIHI"<<endl;
+                            colCount++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos] && rowPos[colPos]!=0) //going down
+    // {
+    //     colCount++;
+    //     if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos] && rowPos[colPos]-1!=0)
+    //     {
+    //         colCount++;
+    //         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos] && rowPos[colPos]-2!=0)
+    //         {
+    //             colCount++;
+    //         }
+    //     }
+    // }
+
+    if(colCount>=4)
+    {
+        return true;
+    }
+
+    else
+    {
+        return false;
+    }
 }
 
 
