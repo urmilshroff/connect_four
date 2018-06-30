@@ -74,7 +74,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
         display(board);
     }
 
-    cout<<"Congratulations, "<<playerName[p]<<"! Looks like you won!"<<endl;
+    cout<<"\nCongratulations, "<<playerName[p]<<"! Looks like you won!"<<endl;
 }
 
 
@@ -124,21 +124,20 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
 {
     int colCount=1;
 
-    if(rowPos[colPos]!=0) //can go up as long as the current row is not the edge
+    if(rowPos[colPos]<=2) //starts checking lower values after it reaches the third row (since we play from below)
     {
-        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]-1][colPos]) //going up
+        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos]) //checking down
         {
             colCount++;
-            if(rowPos[colPos]-1!=0)
+            if(rowPos[colPos]+1<=3) //dick
             {
-                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]-2][colPos])
+                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos])
                 {
                     colCount++;
-                    if(rowPos[colPos]-2!=0)
+                    if(rowPos[colPos]+2<=4)
                     {
-                        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]-3][colPos])
+                        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos])
                         {
-                            cout<<"HIHIHI"<<endl;
                             colCount++;
                         }
                     }
@@ -146,19 +145,6 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
             }
         }
     }
-
-    // if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos] && rowPos[colPos]!=0) //going down
-    // {
-    //     colCount++;
-    //     if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos] && rowPos[colPos]-1!=0)
-    //     {
-    //         colCount++;
-    //         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos] && rowPos[colPos]-2!=0)
-    //         {
-    //             colCount++;
-    //         }
-    //     }
-    // }
 
     if(colCount>=4)
     {
