@@ -129,7 +129,7 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos]) //checking down
         {
             colCount++;
-            if(rowPos[colPos]+1<=3) //dick
+            if(rowPos[colPos]+1<=3) //<=3 <=3 <=3 PENIS ALERT!!! <=3 <=3 <=3
             {
                 if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos])
                 {
