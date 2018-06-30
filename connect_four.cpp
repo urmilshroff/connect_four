@@ -95,27 +95,27 @@ void display(string board[6][7]) //simply displays current state of board
 }
 
 
-bool someWon(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p) //returns true if there is a four in a row
+bool someWon(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
 
     if(verticalChecker(board,rowPos,colPos,playerName,p)==true)
     {
-        return true;
+        return true; //returns true if there is a four in a row vertically
     }
 
     else if(horizontalChecker(board,rowPos,colPos,playerName,p)==true)
     {
-        return true;
+        return true; //returns true if there is a four in a horizontally
     }
 
     else if(diagonalChecker(board,rowPos,colPos,playerName,p)==true)
     {
-        return true;
+        return true; //returns true if there is a four in a diagonally
     }
 
     else
     {
-        return false;
+        return false; //returns false if there is no a four in a row
     }
 }
 
