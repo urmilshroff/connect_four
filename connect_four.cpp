@@ -38,14 +38,14 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
         
         if(isFull(board,playerName,rowPos,colPos,p)==true)
         {
-            continue; //skips everything below and comes back to loop with same player id
+            continue; //skips everything below and comes back to the loop with same player id
         }
         
         if(p==0) //if Player 1 then use "X"
         {
             board[rowPos[colPos]][colPos]="X ";
             
-            if(someWon(board,rowPos[colPos],colPos,playerName,p)==true)
+            if(someWon(board,rowPos,colPos,playerName,p)==true) //rowPos is an integer array of size 7
             {
                 break;
             }
@@ -59,7 +59,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
         {    
             board[rowPos[colPos]][colPos]="O ";
             
-            if(someWon(board,rowPos[colPos],colPos,playerName,p)==true)
+            if(someWon(board,rowPos,colPos,playerName,p)==true)
             {
                 break;
             }
@@ -93,19 +93,20 @@ void display(string board[6][7]) //simply displays current state of board
 }
 
 
-bool someWon(string board[6][7],int rowPos,int colPos,string playerName[2],int p) //returns true if there is a four in a row
+bool someWon(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p) //returns true if there is a four in a row
 {
-    if(verticalChecker(board,rowPos[colPos],colPos,playerName,p)==true)
+
+    if(verticalChecker(board,rowPos,colPos,playerName,p)==true)
     {
         return true;
     }
 
-    else if(horizontalChecker(board,rowPos[colPos],colPos,playerName,p)==true)
+    else if(horizontalChecker(board,rowPos,colPos,playerName,p)==true)
     {
         return true;
     }
 
-    else if(diagonalChecker(board,rowPos[colPos],colPos,playerName,p)==true)
+    else if(diagonalChecker(board,rowPos,colPos,playerName,p)==true)
     {
         return true;
     }
@@ -117,36 +118,36 @@ bool someWon(string board[6][7],int rowPos,int colPos,string playerName[2],int p
 }
 
 
-bool verticalChecker(string board[6][7],string rowPos,int colPos,string playerName[2],int p)
+bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
     return false;
 }
 
 
-bool horizontalChecker(string board[6][7],string rowPos,int colPos,string playerName[2],int p)
+bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
     int rowCount=1;
 
-    if(board[rowPos][colPos]==board[rowPos][colPos+1]) //going right
+    if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+1]) //going right
     {
         rowCount++;
-        if(board[rowPos][colPos]==board[rowPos][colPos+2])
+        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+2])
         {
             rowCount++;
-            if(board[rowPos][colPos]==board[rowPos][colPos+3])
+            if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+3])
             {
                 rowCount++;
             }
         }
     }
 
-    if(board[rowPos][colPos]==board[rowPos][colPos-1]) //going left
+    if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-1]) //going left
     {
         rowCount++;
-        if(board[rowPos][colPos]==board[rowPos][colPos-2])
+        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-2])
         {
             rowCount++;
-            if(board[rowPos][colPos]==board[rowPos][colPos-3])
+            if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-3])
             {
                 rowCount++;
             }
@@ -165,7 +166,7 @@ bool horizontalChecker(string board[6][7],string rowPos,int colPos,string player
 }
 
 
-bool diagonalChecker(string board[6][7],string rowPos,int colPos,string playerName[2],int p)
+bool diagonalChecker(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
     return false;
 }
