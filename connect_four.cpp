@@ -123,6 +123,7 @@ bool someWon(string board[6][7],int rowPos[7],int colPos,string playerName[2],in
 bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
     int colCount=1;
+    string winBoard[6][7];
 
     if(rowPos[colPos]<=2) //starts checking lower values after it reaches the third row (since we play from below)
     {
@@ -139,6 +140,21 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
                         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos])
                         {
                             colCount++;
+                            if(p==0)
+                            {
+                                winBoard[rowPos[colPos]][colPos]="X ";
+                                winBoard[rowPos[colPos]+1][colPos]="X ";
+                                winBoard[rowPos[colPos]+2][colPos]="X ";
+                                winBoard[rowPos[colPos]+3][colPos]="X ";
+                            }
+
+                            else if(p==1)
+                            {
+                                winBoard[rowPos[colPos]][colPos]="O ";
+                                winBoard[rowPos[colPos]+1][colPos]="O ";
+                                winBoard[rowPos[colPos]+2][colPos]="O ";
+                                winBoard[rowPos[colPos]+3][colPos]="O ";
+                            }
                         }
                     }
                 }
@@ -148,6 +164,7 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
 
     if(colCount>=4)
     {
+        display(winBoard);
         return true;
     }
 
@@ -161,6 +178,15 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
 bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
     int rowCount=1;
+    string winBoard[6][7];
+
+    for(i=0;i<6;i++)
+    {
+        for(j=0;j<7;j++)
+        {
+            winBoard[i][j]="_ ";
+        }
+    }
 
     if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+1]) //going right
     {
@@ -171,6 +197,22 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
             if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+3])
             {
                 rowCount++;
+
+                if(p==0)
+                {
+                    winBoard[rowPos[colPos]][colPos]="X ";
+                    winBoard[rowPos[colPos]][colPos+1]="X ";
+                    winBoard[rowPos[colPos]][colPos+2]="X ";
+                    winBoard[rowPos[colPos]][colPos+3]="X ";
+                }
+
+                else if(p==1)
+                {
+                    winBoard[rowPos[colPos]][colPos]="O ";
+                    winBoard[rowPos[colPos]][colPos+1]="O ";
+                    winBoard[rowPos[colPos]][colPos+2]="O ";
+                    winBoard[rowPos[colPos]][colPos+3]="O ";
+                }
             }
         }
     }
@@ -184,12 +226,29 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
             if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-3])
             {
                 rowCount++;
+
+                if(p==0)
+                {
+                    winBoard[rowPos[colPos]][colPos]="X ";
+                    winBoard[rowPos[colPos]][colPos-1]="X ";
+                    winBoard[rowPos[colPos]][colPos-2]="X ";
+                    winBoard[rowPos[colPos]][colPos-3]="X ";
+                }
+
+                else if(p==1)
+                {
+                    winBoard[rowPos[colPos]][colPos]="O ";
+                    winBoard[rowPos[colPos]][colPos-1]="O ";
+                    winBoard[rowPos[colPos]][colPos-2]="O ";
+                    winBoard[rowPos[colPos]][colPos-3]="O ";
+                }
             }
         }
     }
 
     if(rowCount>=4)
     {
+        display(winBoard);
         return true;
     }
 
