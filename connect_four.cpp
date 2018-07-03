@@ -36,7 +36,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
     {
         colPos=playerChoice(playerName,p); //player's choice goes into board
         
-        if(isFull(board,playerName,rowPos,colPos,p)==true)
+        if(isFull(board,playerName,rowPos,colPos,p)
         {
             continue; //skips everything below and comes back to the loop with same player id
         }
@@ -45,7 +45,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
         {
             board[rowPos[colPos]][colPos]="X ";
             
-            if(someWon(board,rowPos,colPos,playerName,p)==true) //rowPos is an integer array of size 7
+            if(someWon(board,rowPos,colPos,playerName,p) //rowPos is an integer array of size 7
             {
                 display(board);
                 break;
@@ -60,7 +60,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
         {    
             board[rowPos[colPos]][colPos]="O ";
             
-            if(someWon(board,rowPos,colPos,playerName,p)==true)
+            if(someWon(board,rowPos,colPos,playerName,p)
             {
                 display(board);
                 break;
@@ -70,8 +70,6 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
                 p=0;
             }
         }
-
-        display(board);
     }
 
     cout<<"\nCongratulations, "<<playerName[p]<<"! Looks like you won!"<<endl;
@@ -97,18 +95,17 @@ void display(string board[6][7]) //simply displays current state of board
 
 bool someWon(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
-
-    if(verticalChecker(board,rowPos,colPos,playerName,p)==true)
+    if(verticalChecker(board,rowPos,colPos,playerName,p)
     {
         return true; //returns true if there is a four in a row vertically
     }
 
-    else if(horizontalChecker(board,rowPos,colPos,playerName,p)==true)
+    else if(horizontalChecker(board,rowPos,colPos,playerName,p)
     {
         return true; //returns true if there is a four in a horizontally
     }
 
-    else if(diagonalChecker(board,rowPos,colPos,playerName,p)==true)
+    else if(diagonalChecker(board,rowPos,colPos,playerName,p)
     {
         return true; //returns true if there is a four in a diagonally
     }
