@@ -131,42 +131,15 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
 
     if(rowPos[colPos]<=2) //starts checking lower values after it reaches the third row (since we play from below)
     {
-        if(p==0)
-        {
-            winBoard[rowPos[colPos]][colPos]="X "; //TODO: make this into a function
-        }
-        else if(p==1)
-        {
-            winBoard[rowPos[colPos]][colPos]="O ";
-        }
-
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos]) //checking down
         {
             colCount++;
-
-            if(p==0)
-            {
-                winBoard[rowPos[colPos]+1][colPos]="X ";
-            }
-            else if(p==1)
-            {
-                winBoard[rowPos[colPos]+1][colPos]="O ";
-            }
 
             if(rowPos[colPos]+1<=3) //WILD PENIS ALERT!!!
             {
                 if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos])
                 {
                     colCount++;
-
-                    if(p==0)
-                    {
-                        winBoard[rowPos[colPos]+2][colPos]="X ";
-                    }
-                    else if(p==1)
-                    {
-                        winBoard[rowPos[colPos]+2][colPos]="O ";
-                    }
 
                     if(rowPos[colPos]+2<=4)
                     {
@@ -176,11 +149,17 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
 
                             if(p==0)
                             {
+                                winBoard[rowPos[colPos]][colPos]="X ";
+                                winBoard[rowPos[colPos]+1][colPos]="X ";
+                                winBoard[rowPos[colPos]+2][colPos]="X ";
                                 winBoard[rowPos[colPos]+3][colPos]="X ";
                             }
 
                             else if(p==1)
                             {
+                                winBoard[rowPos[colPos]][colPos]="X ";
+                                winBoard[rowPos[colPos]+1][colPos]="X ";
+                                winBoard[rowPos[colPos]+2][colPos]="X ";
                                 winBoard[rowPos[colPos]+3][colPos]="O ";
                             }
                         }
@@ -219,9 +198,11 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
     if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+1]) //going right
     {
         rowCount++;
+
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+2])
         {
             rowCount++;
+
             if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+3])
             {
                 rowCount++;
@@ -248,9 +229,11 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
     if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-1]) //going left
     {
         rowCount++;
+
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-2])
         {
             rowCount++;
+
             if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-3])
             {
                 rowCount++;
