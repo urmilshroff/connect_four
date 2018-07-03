@@ -36,7 +36,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
     {
         colPos=playerChoice(playerName,p); //player's choice goes into board
         
-        if(isFull(board,playerName,rowPos,colPos,p)
+        if(isFull(board,playerName,rowPos,colPos,p))
         {
             continue; //skips everything below and comes back to the loop with same player id
         }
@@ -45,9 +45,8 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
         {
             board[rowPos[colPos]][colPos]="X ";
             
-            if(someWon(board,rowPos,colPos,playerName,p) //rowPos is an integer array of size 7
+            if(someWon(board,rowPos,colPos,playerName,p)) //rowPos is an integer array of size 7
             {
-                display(board);
                 break;
             }
             else
@@ -60,9 +59,8 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
         {    
             board[rowPos[colPos]][colPos]="O ";
             
-            if(someWon(board,rowPos,colPos,playerName,p)
+            if(someWon(board,rowPos,colPos,playerName,p))
             {
-                display(board);
                 break;
             }
             else
@@ -70,6 +68,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
                 p=0;
             }
         }
+    display(board);
     }
 
     cout<<"\nCongratulations, "<<playerName[p]<<"! Looks like you won!"<<endl;
@@ -95,17 +94,17 @@ void display(string board[6][7]) //simply displays current state of board
 
 bool someWon(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
-    if(verticalChecker(board,rowPos,colPos,playerName,p)
+    if(verticalChecker(board,rowPos,colPos,playerName,p))
     {
         return true; //returns true if there is a four in a row vertically
     }
 
-    else if(horizontalChecker(board,rowPos,colPos,playerName,p)
+    else if(horizontalChecker(board,rowPos,colPos,playerName,p))
     {
         return true; //returns true if there is a four in a horizontally
     }
 
-    else if(diagonalChecker(board,rowPos,colPos,playerName,p)
+    else if(diagonalChecker(board,rowPos,colPos,playerName,p))
     {
         return true; //returns true if there is a four in a diagonally
     }
@@ -124,32 +123,56 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
 
     if(rowPos[colPos]<=2) //starts checking lower values after it reaches the third row (since we play from below)
     {
+        if(p==0)
+        {
+            winBoard[rowPos[colPos]][colPos]="X "; //TODO: make this into a function
+        }
+        else if(p==1)
+        {
+            winBoard[rowPos[colPos]][colPos]="O ";
+        }
+
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos]) //checking down
         {
             colCount++;
+
+            if(p==0)
+            {
+                winBoard[rowPos[colPos]+1][colPos]="X ";
+            }
+            else if(p==1)
+            {
+                winBoard[rowPos[colPos]+1][colPos]="O ";
+            }
+
             if(rowPos[colPos]+1<=3) //WILD PENIS ALERT!!!
             {
                 if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos])
                 {
                     colCount++;
+
+                    if(p==0)
+                    {
+                        winBoard[rowPos[colPos]+2][colPos]="X ";
+                    }
+                    else if(p==1)
+                    {
+                        winBoard[rowPos[colPos]+2][colPos]="O ";
+                    }
+
                     if(rowPos[colPos]+2<=4)
                     {
                         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos])
                         {
                             colCount++;
+
                             if(p==0)
                             {
-                                winBoard[rowPos[colPos]][colPos]="X ";
-                                winBoard[rowPos[colPos]+1][colPos]="X ";
-                                winBoard[rowPos[colPos]+2][colPos]="X ";
                                 winBoard[rowPos[colPos]+3][colPos]="X ";
                             }
 
                             else if(p==1)
                             {
-                                winBoard[rowPos[colPos]][colPos]="O ";
-                                winBoard[rowPos[colPos]+1][colPos]="O ";
-                                winBoard[rowPos[colPos]+2][colPos]="O ";
                                 winBoard[rowPos[colPos]+3][colPos]="O ";
                             }
                         }
@@ -161,7 +184,7 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
 
     if(colCount>=4)
     {
-        display(winBoard);
+        display(winBoard); //still not displaying winBoard correctly
         return true;
     }
 
