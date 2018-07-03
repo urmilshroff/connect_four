@@ -121,6 +121,14 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
     int colCount=1;
     string winBoard[6][7];
 
+    for(i=0;i<6;i++)
+    {
+        for(j=0;j<7;j++)
+        {
+            winBoard[i][j]="_ ";
+        }
+    }
+
     if(rowPos[colPos]<=2) //starts checking lower values after it reaches the third row (since we play from below)
     {
         if(p==0)
@@ -281,6 +289,17 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
 
 bool diagonalChecker(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
+    int diagCount=1;
+    string winBoard[6][7];
+
+    for(i=0;i<6;i++)
+    {
+        for(j=0;j<7;j++)
+        {
+            winBoard[i][j]="_ ";
+        }
+    }
+
     return false;
 }
 
