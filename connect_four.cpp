@@ -152,7 +152,6 @@ bool isDraw(string board[6][7])
 
 bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
-    int colCount=1;
     string winBoard[6][7];
 
     for(i=0;i<6;i++)
@@ -167,20 +166,17 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
     {
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos]) //checking down
         {
-            colCount++;
             if(rowPos[colPos]+1<=3) //WILD PENIS ALERT!!!
             {
                 if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos])
                 {
-                    colCount++;
                     if(rowPos[colPos]+2<=4)
                     {
                         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos])
                         {
-                            colCount++;
                             if(p==0)
                             {
-                                winBoard[rowPos[colPos]][colPos]="X ";
+                                winBoard[rowPos[colPos]][colPos]="X "; //TODO: make this a loop
                                 winBoard[rowPos[colPos]+1][colPos]="X ";
                                 winBoard[rowPos[colPos]+2][colPos]="X ";
                                 winBoard[rowPos[colPos]+3][colPos]="X ";
@@ -193,23 +189,15 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
                                 winBoard[rowPos[colPos]+2][colPos]="X ";
                                 winBoard[rowPos[colPos]+3][colPos]="O ";
                             }
+                            display(winBoard);
+                            return true;
                         }
                     }
                 }
             }
         }
     }
-
-    if(colCount>=4)
-    {
-        display(winBoard); //still not displaying winBoard correctly
-        return true;
-    }
-
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 
@@ -257,7 +245,6 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
     if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-1]) //going left
     {
         rowCount++;
-
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-2])
         {
             rowCount++;
@@ -298,7 +285,6 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
 
 bool diagonalChecker(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
-    int diagCount=1;
     string winBoard[6][7];
 
     for(i=0;i<6;i++)
@@ -313,13 +299,10 @@ bool diagonalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
     {
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos+1]) //bottom right
         {
-            diagCount++;
             if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos+2])
             {
-                diagCount++;
                 if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos+3])
                 {
-                    diagCount++;
                     if(p==0)
                     {
                         winBoard[rowPos[colPos]][colPos]="X ";
@@ -335,19 +318,18 @@ bool diagonalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
                         winBoard[rowPos[colPos]+2][colPos+2]="O ";
                         winBoard[rowPos[colPos]+3][colPos+3]="O ";
                     }
+                    display(winBoard);
+                    return true;
                 }
             }
         }
 
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos-1]) //bottom left
         {
-            diagCount++;
             if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos-2])
             {
-                diagCount++;
                 if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos-3])
                 {
-                    diagCount++;
                     if(p==0)
                     {
                         winBoard[rowPos[colPos]][colPos]="X ";
@@ -363,21 +345,13 @@ bool diagonalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
                         winBoard[rowPos[colPos]+2][colPos-2]="O ";
                         winBoard[rowPos[colPos]+3][colPos-3]="O ";
                     }
+                    display(winBoard);
+                    return true;
                 }
             }
         }
     }
-
-    if(diagCount>=4)
-    {
-        display(winBoard);
-        return true;
-    }
-
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 
