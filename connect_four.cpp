@@ -32,7 +32,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
 {
     int rowPos[7],winner;
     
-    while(true) //when somebody wins, this loop should break out
+    while(isDraw(board)!=true) //as long as it is not a draw
     {
         colPos=playerChoice(playerName,p); //player's choice goes into board
         
@@ -71,7 +71,14 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
     display(board);
     }
 
-    cout<<"\nCongratulations, "<<playerName[p]<<"! Looks like you won!"<<endl;
+    if(isDraw(board)==true)
+    {
+        cout<<"\nWhups, it's a draw!"<<endl;
+    }
+    else
+    {
+        cout<<"\nCongratulations, "<<playerName[p]<<"! Looks like you won!"<<endl;
+    }
 }
 
 
@@ -112,6 +119,33 @@ bool someWon(string board[6][7],int rowPos[7],int colPos,string playerName[2],in
     else
     {
         return false; //returns false if there is no a four in a row
+    }
+}
+
+
+bool isDraw(string board[6][7])
+{
+    int isFullCount=0;
+    for(j=0;j<6;j++)
+    {
+        if(board[0][j]=="_ ")
+        {
+            break;
+        }
+        else
+        {
+            isFullCount++;
+        }
+    }
+
+    if(isFullCount==7)
+    {
+        return true; //draw
+    }
+
+    else
+    {
+        return false;
     }
 }
 
