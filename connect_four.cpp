@@ -134,19 +134,16 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos]) //checking down
         {
             colCount++;
-
             if(rowPos[colPos]+1<=3) //WILD PENIS ALERT!!!
             {
                 if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos])
                 {
                     colCount++;
-
                     if(rowPos[colPos]+2<=4)
                     {
                         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos])
                         {
                             colCount++;
-
                             if(p==0)
                             {
                                 winBoard[rowPos[colPos]][colPos]="X ";
@@ -198,15 +195,12 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
     if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+1]) //going right
     {
         rowCount++;
-
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+2])
         {
             rowCount++;
-
             if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+3])
             {
                 rowCount++;
-
                 if(p==0)
                 {
                     winBoard[rowPos[colPos]][colPos]="X ";
@@ -233,11 +227,9 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-2])
         {
             rowCount++;
-
             if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-3])
             {
                 rowCount++;
-
                 if(p==0)
                 {
                     winBoard[rowPos[colPos]][colPos]="X ";
@@ -283,7 +275,44 @@ bool diagonalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
         }
     }
 
-    return false;
+    if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]-1][colPos+1]) //top right
+    {
+        diagCount++;
+        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]-2][colPos+2])
+        {
+            diagCount++;
+            if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]-3][colPos+3])
+            {
+                diagCount++;
+                if(p==0)
+                {
+                    winBoard[rowPos[colPos]][colPos]="X ";
+                    winBoard[rowPos[colPos]-1][colPos+1]="X ";
+                    winBoard[rowPos[colPos]-2][colPos+2]="X ";
+                    winBoard[rowPos[colPos]-3][colPos+3]="X ";
+                }
+
+                else if(p==1)
+                {
+                    winBoard[rowPos[colPos]][colPos]="O ";
+                    winBoard[rowPos[colPos]-1][colPos+1]="O ";
+                    winBoard[rowPos[colPos]-2][colPos+2]="O ";
+                    winBoard[rowPos[colPos]-3][colPos+3]="O ";
+                }
+            }
+        }
+    }
+
+    if(diagCount>=4)
+    {
+        display(winBoard);
+        return true;
+    }
+
+    else
+    {
+        return false;
+    }
 }
 
 
