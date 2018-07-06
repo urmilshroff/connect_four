@@ -77,7 +77,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
     }
     else
     {
-        cout<<"\nCongratulations, "<<playerName[p]<<"! Looks like you won!"<<endl;
+        cout<<"\nCongratulations, "<<playerName[p]<<"! You won!"<<endl;
     }
 }
 
@@ -176,18 +176,18 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
                         {
                             if(p==0)
                             {
-                                winBoard[rowPos[colPos]][colPos]="X "; //TODO: make this a loop
-                                winBoard[rowPos[colPos]+1][colPos]="X ";
-                                winBoard[rowPos[colPos]+2][colPos]="X ";
-                                winBoard[rowPos[colPos]+3][colPos]="X ";
+                                for(i=0;i<4;i++)
+                                {
+                                    winBoard[rowPos[colPos]+i][colPos]="X ";
+                                }
                             }
 
                             else if(p==1)
                             {
-                                winBoard[rowPos[colPos]][colPos]="X ";
-                                winBoard[rowPos[colPos]+1][colPos]="X ";
-                                winBoard[rowPos[colPos]+2][colPos]="X ";
-                                winBoard[rowPos[colPos]+3][colPos]="O ";
+                                for(i=0;i<4;i++)
+                                {
+                                    winBoard[rowPos[colPos]+i][colPos]="O ";
+                                }
                             }
                             display(winBoard);
                             return true;
@@ -333,18 +333,18 @@ bool diagonalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
                 {
                     if(p==0)
                     {
-                        winBoard[rowPos[colPos]][colPos]="X ";
-                        winBoard[rowPos[colPos]+1][colPos+1]="X ";
-                        winBoard[rowPos[colPos]+2][colPos+2]="X ";
-                        winBoard[rowPos[colPos]+3][colPos+3]="X ";
+                        for(i=0;i<4;i++)
+                        {
+                            winBoard[rowPos[colPos]+i][colPos+i]="X ";
+                        }
                     }
 
                     else if(p==1)
                     {
-                        winBoard[rowPos[colPos]][colPos]="O ";
-                        winBoard[rowPos[colPos]+1][colPos+1]="O ";
-                        winBoard[rowPos[colPos]+2][colPos+2]="O ";
-                        winBoard[rowPos[colPos]+3][colPos+3]="O ";
+                        for(i=0;i<4;i++)
+                        {
+                            winBoard[rowPos[colPos]+i][colPos+i]="O ";
+                        }
                     }
                     display(winBoard);
                     return true;
@@ -360,18 +360,18 @@ bool diagonalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
                 {
                     if(p==0)
                     {
-                        winBoard[rowPos[colPos]][colPos]="X ";
-                        winBoard[rowPos[colPos]+1][colPos-1]="X ";
-                        winBoard[rowPos[colPos]+2][colPos-2]="X ";
-                        winBoard[rowPos[colPos]+3][colPos-3]="X ";
+                        for(i=0;i<4;i++)
+                        {
+                            winBoard[rowPos[colPos]+i][colPos-i]="X ";
+                        }
                     }
 
                     else if(p==1)
                     {
-                        winBoard[rowPos[colPos]][colPos]="O ";
-                        winBoard[rowPos[colPos]+1][colPos-1]="O ";
-                        winBoard[rowPos[colPos]+2][colPos-2]="O ";
-                        winBoard[rowPos[colPos]+3][colPos-3]="O ";
+                        for(i=0;i<4;i++)
+                        {
+                            winBoard[rowPos[colPos]+i][colPos-i]="O ";
+                        }
                     }
                     display(winBoard);
                     return true;
@@ -438,7 +438,6 @@ int playerChoice(string playerName[2],int p)
     }
     
     return colPos-1; //because array position counting starts from 0
-
 }
 
 };
