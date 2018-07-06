@@ -216,56 +216,84 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
 
     if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+1]) //going right
     {
+        if(p==0)
+        {
+            winBoard[rowPos[colPos]][colPos]="X ";
+            winBoard[rowPos[colPos]][colPos+1]="X ";
+        }
+        else if(p==1)
+        {
+            winBoard[rowPos[colPos]][colPos]="O ";
+            winBoard[rowPos[colPos]][colPos+1]="O ";
+        }
         rowCount++;
+
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+2])
         {
+            if(p==0)
+            {
+                winBoard[rowPos[colPos]][colPos+2]="X ";
+            }
+            else if(p==1)
+            {
+                winBoard[rowPos[colPos]][colPos+2]="O ";
+            }
             rowCount++;
+
             if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+3])
             {
-                rowCount++;
                 if(p==0)
                 {
-                    winBoard[rowPos[colPos]][colPos]="X ";
-                    winBoard[rowPos[colPos]][colPos+1]="X ";
-                    winBoard[rowPos[colPos]][colPos+2]="X ";
                     winBoard[rowPos[colPos]][colPos+3]="X ";
                 }
 
                 else if(p==1)
                 {
-                    winBoard[rowPos[colPos]][colPos]="O ";
-                    winBoard[rowPos[colPos]][colPos+1]="O ";
-                    winBoard[rowPos[colPos]][colPos+2]="O ";
                     winBoard[rowPos[colPos]][colPos+3]="O ";
                 }
+                rowCount++;
             }
         }
     }
 
     if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-1]) //going left
     {
+        if(p==0)
+        {
+            winBoard[rowPos[colPos]][colPos]="X ";
+            winBoard[rowPos[colPos]][colPos-1]="X ";
+        }
+        else if(p==1)
+        {
+            winBoard[rowPos[colPos]][colPos]="O ";
+            winBoard[rowPos[colPos]][colPos-1]="O ";
+        }
         rowCount++;
+
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-2])
         {
+            if(p==0)
+            {
+                winBoard[rowPos[colPos]][colPos-2]="X ";
+            }
+            else if(p==1)
+            {
+                winBoard[rowPos[colPos]][colPos-2]="O ";
+            }
             rowCount++;
+
             if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-3])
             {
-                rowCount++;
                 if(p==0)
                 {
-                    winBoard[rowPos[colPos]][colPos]="X ";
-                    winBoard[rowPos[colPos]][colPos-1]="X ";
-                    winBoard[rowPos[colPos]][colPos-2]="X ";
                     winBoard[rowPos[colPos]][colPos-3]="X ";
                 }
 
                 else if(p==1)
                 {
-                    winBoard[rowPos[colPos]][colPos]="O ";
-                    winBoard[rowPos[colPos]][colPos-1]="O ";
-                    winBoard[rowPos[colPos]][colPos-2]="O ";
                     winBoard[rowPos[colPos]][colPos-3]="O ";
                 }
+                rowCount++;
             }
         }
     }
