@@ -214,7 +214,7 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
         }
     }
 
-    if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+1]) //going right
+    if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+1] &&) //going right
     {
         if(p==0)
         {
