@@ -203,8 +203,9 @@ bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
 
 bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
-    int rowCount=1;
+    int colCount=1;
     string winBoard[6][7];
+    bool isOnEdge=false;
 
     for(i=0;i<6;i++)
     {
@@ -226,7 +227,7 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
             winBoard[rowPos[colPos]][colPos]="O ";
             winBoard[rowPos[colPos]][colPos+1]="O ";
         }
-        rowCount++;
+        colCount++;
 
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+2])
         {
@@ -238,7 +239,7 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
             {
                 winBoard[rowPos[colPos]][colPos+2]="O ";
             }
-            rowCount++;
+            colCount++;
 
             if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+3])
             {
@@ -251,7 +252,7 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
                 {
                     winBoard[rowPos[colPos]][colPos+3]="O ";
                 }
-                rowCount++;
+                colCount++;
             }
         }
     }
@@ -268,7 +269,7 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
             winBoard[rowPos[colPos]][colPos]="O ";
             winBoard[rowPos[colPos]][colPos-1]="O ";
         }
-        rowCount++;
+        colCount++;
 
         if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-2])
         {
@@ -280,7 +281,7 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
             {
                 winBoard[rowPos[colPos]][colPos-2]="O ";
             }
-            rowCount++;
+            colCount++;
 
             if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-3])
             {
@@ -293,12 +294,12 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
                 {
                     winBoard[rowPos[colPos]][colPos-3]="O ";
                 }
-                rowCount++;
+                colCount++;
             }
         }
     }
 
-    if(rowCount>=4)
+    if(colCount>=4)
     {
         display(winBoard);
         return true;
