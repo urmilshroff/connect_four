@@ -28,6 +28,23 @@ Board()
 }
 
 
+void display(string board[6][7]) //simply displays current state of board
+{
+    cout<<"\nCurrent board looks like this:"<<endl;
+
+    for(i=0;i<6;i++)
+    {
+        for(j=0;j<7;j++)
+        {
+            cout<<board[i][j];
+        }
+        cout<<endl;
+    }
+    
+    cout<<"1 2 3 4 5 6 7"<<endl; //positional indicators for each column
+}
+
+
 void updater(string board[6][7],string playerName[2],int p) //updates board with new moves
 {
     int rowPos[7],winner;
@@ -82,23 +99,6 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
 }
 
 
-void display(string board[6][7]) //simply displays current state of board
-{
-    cout<<"\nCurrent board looks like this:"<<endl;
-
-    for(i=0;i<6;i++)
-    {
-        for(j=0;j<7;j++)
-        {
-            cout<<board[i][j];
-        }
-        cout<<endl;
-    }
-    
-    cout<<"1 2 3 4 5 6 7"<<endl; //positional indicators for each column
-}
-
-
 bool someWon(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
     if(verticalChecker(board,rowPos,colPos,playerName,p))
@@ -147,6 +147,27 @@ bool isDraw(string board[6][7])
     {
         return false;
     }
+}
+
+
+bool isFull(string board[6][7],string playerName[2],int rowPos[7],int colPos,int p)
+{
+    if(board[5][colPos]=="_ ") //if no insert in that column yet
+    {
+        rowPos[colPos]=5;
+    }
+    
+    while(board[rowPos[colPos]][colPos]!="_ ") //if someone has already played in that position
+    {
+        if(rowPos[colPos]==0)
+        {
+            cout<<"\nSorry, "<<playerName[p]<<" - it looks like this row is already full!"<<endl;
+            return true;
+            break;
+        }
+        rowPos[colPos]--; //keeps going up up up!
+    }
+    return false;
 }
 
 
@@ -205,7 +226,6 @@ bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string player
 {
     int colCount=1;
     string winBoard[6][7];
-    bool isOnEdge=false;
 
     for(i=0;i<6;i++)
     {
@@ -379,27 +399,6 @@ bool diagonalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
                 }
             }
         }
-    }
-    return false;
-}
-
-
-bool isFull(string board[6][7],string playerName[2],int rowPos[7],int colPos,int p)
-{
-    if(board[5][colPos]=="_ ") //if no insert in that column yet
-    {
-        rowPos[colPos]=5;
-    }
-    
-    while(board[rowPos[colPos]][colPos]!="_ ") //if someone has already played in that position
-    {
-        if(rowPos[colPos]==0)
-        {
-            cout<<"\nSorry, "<<playerName[p]<<" - it looks like this row is already full!"<<endl;
-            return true;
-            break;
-        }
-        rowPos[colPos]--; //keeps going up up up!
     }
     return false;
 }
