@@ -14,7 +14,7 @@ Board()
     cin>>playerName[0]; //player 1
     cout<<"\nEnter Player 2 name:"<<endl;
     cin>>playerName[1]; //player 2
-    
+
     for(i=0;i<6;i++)
     {
         for(j=0;j<7;j++)
@@ -40,7 +40,7 @@ void display(string board[6][7]) //simply displays current state of board
         }
         cout<<endl;
     }
-    
+
     cout<<"1 2 3 4 5 6 7"<<endl; //positional indicators for each column
 }
 
@@ -48,20 +48,20 @@ void display(string board[6][7]) //simply displays current state of board
 void updater(string board[6][7],string playerName[2],int p) //updates board with new moves
 {
     int rowPos[7],winner;
-    
+
     while(isDraw(board)!=true) //as long as it is not a draw
     {
         colPos=playerChoice(playerName,p); //player's choice goes into board
-        
+
         if(isFull(board,playerName,rowPos,colPos,p))
         {
             continue; //skips everything below and comes back to the loop with same player id
         }
-        
+
         if(p==0) //if Player 1 then use "X"
         {
             board[rowPos[colPos]][colPos]="X ";
-            
+
             if(someWon(board,rowPos,colPos,playerName,p)) //rowPos is an integer array of size 7
             {
                 break;
@@ -71,11 +71,11 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
                 p=1;
             }
         }
-        
+
         else if(p==1) //if Player 2 then use "O"
-        {    
+        {
             board[rowPos[colPos]][colPos]="O ";
-            
+
             if(someWon(board,rowPos,colPos,playerName,p))
             {
                 break;
@@ -156,7 +156,7 @@ bool isFull(string board[6][7],string playerName[2],int rowPos[7],int colPos,int
     {
         rowPos[colPos]=5;
     }
-    
+
     while(board[rowPos[colPos]][colPos]!="_ ") //if someone has already played in that position
     {
         if(rowPos[colPos]==0)
@@ -405,28 +405,28 @@ bool diagonalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
 
 
 int playerChoice(string playerName[2],int p)
-{    
+{
     cout<<"\nIt's your turn, "<<playerName[p]<<"! Which column do you want to play in?"<<endl;
-    
+
     while(true)
-    {    
+    {
         while(true)
         {
             cin>>colPos;
-            
+
             if(cin.fail())
             {
                 cin.clear();
                 cin.ignore();
                 cout<<"\nSorry, "<<playerName[p]<<" - please enter a valid column number between 1 & 7!"<<endl;
             }
-            
+
             else
             {
                 break;
             }
         }
-        
+
         if(colPos<1 || colPos>7)
         {
             cout<<"\nSorry, "<<playerName[p]<<" - please enter a valid column number between 1 & 7!"<<endl;
@@ -436,7 +436,7 @@ int playerChoice(string playerName[2],int p)
             break;
         }
     }
-    
+
     return colPos-1; //because array position counting starts from 0
 }
 
@@ -445,7 +445,7 @@ int playerChoice(string playerName[2],int p)
 
 int main()
 {
-    cout<<"\nWelcome to CONNECT FOUR by Urmil Shroff!!"<<endl;
+    cout<<"\nWelcome to CONNECT FOUR by Urmil Shroff!"<<endl;
     Board obj;
     return 0;
 }
