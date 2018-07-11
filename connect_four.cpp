@@ -445,7 +445,7 @@ int playerChoice(string playerName[2],int p)
 
 int main()
 {
-    cout<<"\nWelcome to CONNECT FOUR by Urmil Shroff!"<<endl;
+    cout<<"\nWelcome to CONNECT FOUR by Urmil Shroff!!"<<endl;
     Board obj;
     return 0;
 }
