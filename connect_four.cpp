@@ -5,26 +5,40 @@ class Board
 {
 public:
 
-int i,j,p,colPos;
+int i,j,p,choice,colPos,randNum;
 string board[6][7],playerName[2]; //board of 6 rows and 7 columns
 
 Board()
 {
-    cout<<"\nEnter Player 1 name:"<<endl;
-    cin>>playerName[0]; //player 1
-    cout<<"\nEnter Player 2 name:"<<endl;
-    cin>>playerName[1]; //player 2
-
-    for(i=0;i<6;i++)
+    for(i=0;i<6;i++) //rows
     {
-        for(j=0;j<7;j++)
+        for(j=0;j<7;j++) //columns
         {
             board[i][j]="_ ";
         }
     } //initializes empty board
-
-    display(board);
-    updater(board,playerName,0);
+    
+    cout<<"Choose your opponent:\n1. Human\n2. Computer"<<endl;
+    cin>>choice;
+    
+    if(choice==1)
+    {
+        cout<<"\nEnter Player 1 name:"<<endl;
+        cin>>playerName[0]; //player 1
+        cout<<"\nEnter Player 2 name:"<<endl;
+        cin>>playerName[1]; //player 2
+        
+        display(board);
+        updater(board,playerName,0);
+    }
+    
+    else if(choice==2)
+    {
+        randNum=rand()%6+1;
+        display(board);
+        updater(board,playerName,0);
+    }
+    
 }
 
 
