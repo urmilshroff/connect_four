@@ -21,24 +21,38 @@ Board()
     cout<<"Choose your opponent:\n1. Human\n2. Computer"<<endl;
     cin>>choice;
     
-    if(choice==1)
+    while(true)
     {
-        cout<<"\nEnter Player 1 name:"<<endl;
-        cin>>playerName[0]; //player 1
-        cout<<"\nEnter Player 2 name:"<<endl;
-        cin>>playerName[1]; //player 2
+        if(choice==1)
+        {
+            cout<<"\nEnter Player 1 name:"<<endl;
+            cin>>playerName[0]; //player 1
+            cout<<"\nEnter Player 2 name:"<<endl;
+            cin>>playerName[1]; //player 2
+            
+            display(board);
+            updater(board,playerName,0,0);
+            
+            break;
+        }
         
-        display(board);
-        updater(board,playerName,0);
+        else if(choice==2)
+        {
+            cout<<"\nEnter Player name:"<<endl;
+            cin>>playerName[0]; //human player
+            playerName[1]="Computer"; //bot
+            
+            display(board);
+            updater(board,playerName,0,1);
+            
+            break;
+        }
+        
+        else
+        {
+            cout<<"\nSorry, please enter either 1 or 2!"<<endl;
+        }
     }
-    
-    else if(choice==2)
-    {
-        randNum=rand()%6+1;
-        display(board);
-        updater(board,playerName,0);
-    }
-    
 }
 
 
@@ -59,13 +73,13 @@ void display(string board[6][7]) //simply displays current state of board
 }
 
 
-void updater(string board[6][7],string playerName[2],int p) //updates board with new moves
+void updater(string board[6][7],string playerName[2],int p,int opponent) //updates board with new moves
 {
     int rowPos[7],winner;
 
     while(isDraw(board)!=true) //as long as it is not a draw
     {
-        colPos=playerChoice(playerName,p); //player's choice goes into board
+        colPos=playerChoice(playerName,p,opponent); //player's choice goes into board
 
         if(isFull(board,playerName,rowPos,colPos,p))
         {
@@ -86,7 +100,7 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
             }
         }
 
-        else if(p==1) //if Player 2 then use "O"
+        else if(p==1) //if Player 2 or bot then use "O"
         {
             board[rowPos[colPos]][colPos]="O ";
 
@@ -108,7 +122,21 @@ void updater(string board[6][7],string playerName[2],int p) //updates board with
     }
     else
     {
-        cout<<"\nCongratulations, "<<playerName[p]<<"! You won!"<<endl;
+        if(opponent==0)
+        {
+            cout<<"\nCongratulations, "<<playerName[p]<<"! You won!"<<endl;
+        }
+        else if(opponent==1)
+        {
+            if(p==0)
+            {
+                cout<<"\nCongratulations, "<<playerName[p]<<"! You won!"<<endl;
+            }
+            else if(p==1)
+            {
+                cout<<"\nBad luck, "<<playerName[p]<<" - looks like the computer won this round!"<<endl;
+            }
+        }
     }
 }
 
@@ -418,12 +446,12 @@ bool diagonalChecker(string board[6][7],int rowPos[7],int colPos,string playerNa
 }
 
 
-int playerChoice(string playerName[2],int p)
+int playerChoice(string playerName[2],int p,int opponent)
 {
-    cout<<"\nIt's your turn, "<<playerName[p]<<"! Which column do you want to play in?"<<endl;
-
-    while(true)
+    if(opponent==0) //if human vs. human
     {
+        cout<<"\nIt's your turn, "<<playerName[p]<<"! Which column do you want to play in?"<<endl;
+
         while(true)
         {
             cin>>colPos;
@@ -434,6 +462,11 @@ int playerChoice(string playerName[2],int p)
                 cin.ignore();
                 cout<<"\nSorry, "<<playerName[p]<<" - please enter a valid column number between 1 & 7!"<<endl;
             }
+            
+            else if(colPos<1 || colPos>7)
+            {
+                cout<<"\nSorry, "<<playerName[p]<<" - please enter a valid column number between 1 & 7!"<<endl;
+            }
 
             else
             {
@@ -441,25 +474,26 @@ int playerChoice(string playerName[2],int p)
             }
         }
 
-        if(colPos<1 || colPos>7)
-        {
-            cout<<"\nSorry, "<<playerName[p]<<" - please enter a valid column number between 1 & 7!"<<endl;
-        }
-        else
-        {
-            break;
-        }
+        return colPos-1; //because array position counting starts from 0
     }
-
-    return colPos-1; //because array position counting starts from 0
+    
+    else if(opponent==1)
+    {
+        colPos=rand()%6+1;
+        return colPos-1;
+    }
+    
+    else
+    {
+        return 0; //to prevent a warning
+    }
 }
-
 };
 
 
 int main()
 {
     cout<<"\nWelcome to CONNECT FOUR by Urmil Shroff!"<<endl;
-    Board obj;
+    Board obj; //lel
     return 0;
 }
