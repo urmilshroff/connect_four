@@ -1,11 +1,12 @@
 #include<iostream>
+#include<cstdlib>
 using namespace std;
 
 class Board
 {
 public:
 
-int i,j,p,choice,colPos;
+int i,j,p,choice,colPos,temp;
 string board[6][7],playerName[2]; //board of 6 rows and 7 columns
 
 Board()
@@ -19,6 +20,8 @@ Board()
     } //initializes empty board
     
     cout<<"Choose your game type:\n1. Human vs. Human\n2. Human vs. Computer"<<endl;
+    temp = rand() % 6;
+    cout<<temp<<endl;
     cin>>choice;
     
     while(true)
@@ -126,6 +129,7 @@ void updater(string board[6][7],string playerName[2],int p,int opponent) //updat
         {
             cout<<"\nCongratulations, "<<playerName[p]<<"! You won!"<<endl;
         }
+        
         else if(opponent==1)
         {
             if(p==0)
@@ -205,7 +209,8 @@ bool isFull(string board[6][7],string playerName[2],int rowPos[7],int colPos,int
         {
             if(opponent==0)
             {
-            cout<<"\nSorry, "<<playerName[p]<<" - it looks like this row is already full!"<<endl;
+                cout<<"\nSorry, "<<playerName[p]<<" - it looks like this row is already full!"<<endl;
+            }
             return true;
             break;
         }
