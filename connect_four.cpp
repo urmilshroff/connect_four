@@ -5,7 +5,7 @@ class Board
 {
 public:
 
-int i,j,p,choice,colPos,randNum;
+int i,j,p,choice,colPos;
 string board[6][7],playerName[2]; //board of 6 rows and 7 columns
 
 Board()
@@ -18,7 +18,7 @@ Board()
         }
     } //initializes empty board
     
-    cout<<"Choose your opponent:\n1. Human\n2. Computer"<<endl;
+    cout<<"Choose your game type:\n1. Human vs. Human\n2. Human vs. Computer"<<endl;
     cin>>choice;
     
     while(true)
@@ -31,7 +31,7 @@ Board()
             cin>>playerName[1]; //player 2
             
             display(board);
-            updater(board,playerName,0,0);
+            updater(board,playerName,0,0); //last arg is game type
             
             break;
         }
@@ -81,7 +81,7 @@ void updater(string board[6][7],string playerName[2],int p,int opponent) //updat
     {
         colPos=playerChoice(playerName,p,opponent); //player's choice goes into board
 
-        if(isFull(board,playerName,rowPos,colPos,p))
+        if(isFull(board,playerName,rowPos,colPos,p,opponent))
         {
             continue; //skips everything below and comes back to the loop with same player id
         }
@@ -134,7 +134,7 @@ void updater(string board[6][7],string playerName[2],int p,int opponent) //updat
             }
             else if(p==1)
             {
-                cout<<"\nBad luck, "<<playerName[p]<<" - looks like the computer won this round!"<<endl;
+                cout<<"\nBad luck, "<<playerName[p]<<" - looks like the Computer won this round!"<<endl;
             }
         }
     }
@@ -192,7 +192,7 @@ bool isDraw(string board[6][7])
 }
 
 
-bool isFull(string board[6][7],string playerName[2],int rowPos[7],int colPos,int p)
+bool isFull(string board[6][7],string playerName[2],int rowPos[7],int colPos,int p,int opponent)
 {
     if(board[5][colPos]=="_ ") //if no insert in that column yet
     {
@@ -203,6 +203,8 @@ bool isFull(string board[6][7],string playerName[2],int rowPos[7],int colPos,int
     {
         if(rowPos[colPos]==0)
         {
+            if(opponent==0)
+            {
             cout<<"\nSorry, "<<playerName[p]<<" - it looks like this row is already full!"<<endl;
             return true;
             break;
@@ -477,10 +479,10 @@ int playerChoice(string playerName[2],int p,int opponent)
         return colPos-1; //because array position counting starts from 0
     }
     
-    else if(opponent==1)
+    else if(opponent==1) //if human vs. computer
     {
-        colPos=rand()%6+1;
-        return colPos-1;
+        colPos=rand()%6;
+        return colPos;
     }
     
     else
@@ -489,7 +491,6 @@ int playerChoice(string playerName[2],int p,int opponent)
     }
 }
 };
-
 
 int main()
 {
