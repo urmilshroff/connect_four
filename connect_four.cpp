@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
 class Board
@@ -10,434 +10,434 @@ string board[6][7],playerName[2]; //board of 6 rows and 7 columns
 
 Board()
 {
-    cout<<"\nEnter Player 1 name:"<<endl;
-    cin>>playerName[0]; //player 1
-    cout<<"\nEnter Player 2 name:"<<endl;
-    cin>>playerName[1]; //player 2
+        cout<<"\nEnter Player 1 name:"<<endl;
+        cin>>playerName[0]; //player 1
+        cout<<"\nEnter Player 2 name:"<<endl;
+        cin>>playerName[1]; //player 2
 
-    for(i=0;i<6;i++)
-    {
-        for(j=0;j<7;j++)
+        for(i=0; i<6; i++)
         {
-            board[i][j]="_ ";
-        }
-    } //initializes empty board
+                for(j=0; j<7; j++)
+                {
+                        board[i][j]="_ ";
+                }
+        } //initializes empty board
 
-    display(board);
-    updater(board,playerName,0);
+        display(board);
+        updater(board,playerName,0);
 }
 
 
 void display(string board[6][7]) //simply displays current state of board
 {
-    cout<<"\nCurrent board looks like this:"<<endl;
+        cout<<"\nCurrent board looks like this:"<<endl;
 
-    for(i=0;i<6;i++)
-    {
-        for(j=0;j<7;j++)
+        for(i=0; i<6; i++)
         {
-            cout<<board[i][j];
+                for(j=0; j<7; j++)
+                {
+                        cout<<board[i][j];
+                }
+                cout<<endl;
         }
-        cout<<endl;
-    }
 
-    cout<<"1 2 3 4 5 6 7"<<endl; //positional indicators for each column
+        cout<<"1 2 3 4 5 6 7"<<endl; //positional indicators for each column
 }
 
 
 void updater(string board[6][7],string playerName[2],int p) //updates board with new moves
 {
-    int rowPos[7],winner;
+        int rowPos[7],winner;
 
-    while(isDraw(board)!=true) //as long as it is not a draw
-    {
-        colPos=playerChoice(playerName,p); //player's choice goes into board
-
-        if(isFull(board,playerName,rowPos,colPos,p))
+        while(isDraw(board)!=true) //as long as it is not a draw
         {
-            continue; //skips everything below and comes back to the loop with same player id
+                colPos=playerChoice(playerName,p); //player's choice goes into board
+
+                if(isFull(board,playerName,rowPos,colPos,p))
+                {
+                        continue; //skips everything below and comes back to the loop with same player id
+                }
+
+                if(p==0) //if Player 1 then use "X"
+                {
+                        board[rowPos[colPos]][colPos]="X ";
+
+                        if(someWon(board,rowPos,colPos,playerName,p)) //rowPos is an integer array of size 7
+                        {
+                                break;
+                        }
+                        else
+                        {
+                                p=1;
+                        }
+                }
+
+                else if(p==1) //if Player 2 then use "O"
+                {
+                        board[rowPos[colPos]][colPos]="O ";
+
+                        if(someWon(board,rowPos,colPos,playerName,p))
+                        {
+                                break;
+                        }
+                        else
+                        {
+                                p=0;
+                        }
+                }
+                display(board);
         }
 
-        if(p==0) //if Player 1 then use "X"
+        if(isDraw(board)==true)
         {
-            board[rowPos[colPos]][colPos]="X ";
-
-            if(someWon(board,rowPos,colPos,playerName,p)) //rowPos is an integer array of size 7
-            {
-                break;
-            }
-            else
-            {
-                p=1;
-            }
+                cout<<"\nWhups, it's a draw!"<<endl;
         }
-
-        else if(p==1) //if Player 2 then use "O"
+        else
         {
-            board[rowPos[colPos]][colPos]="O ";
-
-            if(someWon(board,rowPos,colPos,playerName,p))
-            {
-                break;
-            }
-            else
-            {
-                p=0;
-            }
+                cout<<"\nCongratulations, "<<playerName[p]<<"! You won!"<<endl;
         }
-    display(board);
-    }
-
-    if(isDraw(board)==true)
-    {
-        cout<<"\nWhups, it's a draw!"<<endl;
-    }
-    else
-    {
-        cout<<"\nCongratulations, "<<playerName[p]<<"! You won!"<<endl;
-    }
 }
 
 
 bool someWon(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
-    if(verticalChecker(board,rowPos,colPos,playerName,p))
-    {
-        return true; //returns true if there is a four in a row vertically
-    }
+        if(verticalChecker(board,rowPos,colPos,playerName,p))
+        {
+                return true; //returns true if there is a four in a row vertically
+        }
 
-    else if(horizontalChecker(board,rowPos,colPos,playerName,p))
-    {
-        return true; //returns true if there is a four in a horizontally
-    }
+        else if(horizontalChecker(board,rowPos,colPos,playerName,p))
+        {
+                return true; //returns true if there is a four in a horizontally
+        }
 
-    else if(diagonalChecker(board,rowPos,colPos,playerName,p))
-    {
-        return true; //returns true if there is a four in a diagonally
-    }
+        else if(diagonalChecker(board,rowPos,colPos,playerName,p))
+        {
+                return true; //returns true if there is a four in a diagonally
+        }
 
-    else
-    {
-        return false; //returns false if there is no a four in a row
-    }
+        else
+        {
+                return false; //returns false if there is no a four in a row
+        }
 }
 
 
 bool isDraw(string board[6][7])
 {
-    int isFullCount=0;
-    for(j=0;j<6;j++)
-    {
-        if(board[0][j]=="_ ")
+        int isFullCount=0;
+        for(j=0; j<6; j++)
         {
-            break;
+                if(board[0][j]=="_ ")
+                {
+                        break;
+                }
+                else
+                {
+                        isFullCount++;
+                }
         }
+
+        if(isFullCount==7)
+        {
+                return true; //draw
+        }
+
         else
         {
-            isFullCount++;
+                return false;
         }
-    }
-
-    if(isFullCount==7)
-    {
-        return true; //draw
-    }
-
-    else
-    {
-        return false;
-    }
 }
 
 
 bool isFull(string board[6][7],string playerName[2],int rowPos[7],int colPos,int p)
 {
-    if(board[5][colPos]=="_ ") //if no insert in that column yet
-    {
-        rowPos[colPos]=5;
-    }
-
-    while(board[rowPos[colPos]][colPos]!="_ ") //if someone has already played in that position
-    {
-        if(rowPos[colPos]==0)
+        if(board[5][colPos]=="_ ") //if no insert in that column yet
         {
-            cout<<"\nSorry, "<<playerName[p]<<" - it looks like this row is already full!"<<endl;
-            return true;
-            break;
+                rowPos[colPos]=5;
         }
-        rowPos[colPos]--; //keeps going up up up!
-    }
-    return false;
+
+        while(board[rowPos[colPos]][colPos]!="_ ") //if someone has already played in that position
+        {
+                if(rowPos[colPos]==0)
+                {
+                        cout<<"\nSorry, "<<playerName[p]<<" - it looks like this row is already full!"<<endl;
+                        return true;
+                        break;
+                }
+                rowPos[colPos]--; //keeps going up up up!
+        }
+        return false;
 }
 
 
 bool verticalChecker(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
-    string winBoard[6][7];
+        string winBoard[6][7];
 
-    for(i=0;i<6;i++)
-    {
-        for(j=0;j<7;j++)
+        for(i=0; i<6; i++)
         {
-            winBoard[i][j]="_ ";
-        }
-    }
-
-    if(rowPos[colPos]<=2) //starts checking lower values after it reaches the third row (since we play from below)
-    {
-        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos]) //checking down
-        {
-            if(rowPos[colPos]+1<=3) //WILD PENIS ALERT!!!
-            {
-                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos])
+                for(j=0; j<7; j++)
                 {
-                    if(rowPos[colPos]+2<=4)
-                    {
-                        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos])
-                        {
-                            if(p==0)
-                            {
-                                for(i=0;i<4;i++)
-                                {
-                                    winBoard[rowPos[colPos]+i][colPos]="X ";
-                                }
-                            }
-
-                            else if(p==1)
-                            {
-                                for(i=0;i<4;i++)
-                                {
-                                    winBoard[rowPos[colPos]+i][colPos]="O ";
-                                }
-                            }
-                            display(winBoard);
-                            return true;
-                        }
-                    }
+                        winBoard[i][j]="_ ";
                 }
-            }
         }
-    }
-    return false;
+
+        if(rowPos[colPos]<=2) //starts checking lower values after it reaches the third row (since we play from below)
+        {
+                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos]) //checking down
+                {
+                        if(rowPos[colPos]+1<=3) //WILD PENIS ALERT!!!
+                        {
+                                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos])
+                                {
+                                        if(rowPos[colPos]+2<=4)
+                                        {
+                                                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos])
+                                                {
+                                                        if(p==0)
+                                                        {
+                                                                for(i=0; i<4; i++)
+                                                                {
+                                                                        winBoard[rowPos[colPos]+i][colPos]="X ";
+                                                                }
+                                                        }
+
+                                                        else if(p==1)
+                                                        {
+                                                                for(i=0; i<4; i++)
+                                                                {
+                                                                        winBoard[rowPos[colPos]+i][colPos]="O ";
+                                                                }
+                                                        }
+                                                        display(winBoard);
+                                                        return true;
+                                                }
+                                        }
+                                }
+                        }
+                }
+        }
+        return false;
 }
 
 
 bool horizontalChecker(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
-    int colCount=1;
-    string winBoard[6][7];
+        int colCount=1;
+        string winBoard[6][7];
 
-    for(i=0;i<6;i++)
-    {
-        for(j=0;j<7;j++)
+        for(i=0; i<6; i++)
         {
-            winBoard[i][j]="_ ";
+                for(j=0; j<7; j++)
+                {
+                        winBoard[i][j]="_ ";
+                }
         }
-    }
 
-    if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+1]) //going right
-    {
-        if(p==0)
+        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+1]) //going right
         {
-            winBoard[rowPos[colPos]][colPos]="X ";
-            winBoard[rowPos[colPos]][colPos+1]="X ";
-        }
-        else if(p==1)
-        {
-            winBoard[rowPos[colPos]][colPos]="O ";
-            winBoard[rowPos[colPos]][colPos+1]="O ";
-        }
-        colCount++;
-
-        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+2])
-        {
-            if(p==0)
-            {
-                winBoard[rowPos[colPos]][colPos+2]="X ";
-            }
-            else if(p==1)
-            {
-                winBoard[rowPos[colPos]][colPos+2]="O ";
-            }
-            colCount++;
-
-            if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+3])
-            {
                 if(p==0)
                 {
-                    winBoard[rowPos[colPos]][colPos+3]="X ";
+                        winBoard[rowPos[colPos]][colPos]="X ";
+                        winBoard[rowPos[colPos]][colPos+1]="X ";
                 }
-
                 else if(p==1)
                 {
-                    winBoard[rowPos[colPos]][colPos+3]="O ";
+                        winBoard[rowPos[colPos]][colPos]="O ";
+                        winBoard[rowPos[colPos]][colPos+1]="O ";
                 }
                 colCount++;
-            }
-        }
-    }
 
-    if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-1]) //going left
-    {
-        if(p==0)
-        {
-            winBoard[rowPos[colPos]][colPos]="X ";
-            winBoard[rowPos[colPos]][colPos-1]="X ";
-        }
-        else if(p==1)
-        {
-            winBoard[rowPos[colPos]][colPos]="O ";
-            winBoard[rowPos[colPos]][colPos-1]="O ";
-        }
-        colCount++;
+                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+2])
+                {
+                        if(p==0)
+                        {
+                                winBoard[rowPos[colPos]][colPos+2]="X ";
+                        }
+                        else if(p==1)
+                        {
+                                winBoard[rowPos[colPos]][colPos+2]="O ";
+                        }
+                        colCount++;
 
-        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-2])
-        {
-            if(p==0)
-            {
-                winBoard[rowPos[colPos]][colPos-2]="X ";
-            }
-            else if(p==1)
-            {
-                winBoard[rowPos[colPos]][colPos-2]="O ";
-            }
-            colCount++;
+                        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos+3])
+                        {
+                                if(p==0)
+                                {
+                                        winBoard[rowPos[colPos]][colPos+3]="X ";
+                                }
 
-            if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-3])
-            {
+                                else if(p==1)
+                                {
+                                        winBoard[rowPos[colPos]][colPos+3]="O ";
+                                }
+                                colCount++;
+                        }
+                }
+        }
+
+        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-1]) //going left
+        {
                 if(p==0)
                 {
-                    winBoard[rowPos[colPos]][colPos-3]="X ";
+                        winBoard[rowPos[colPos]][colPos]="X ";
+                        winBoard[rowPos[colPos]][colPos-1]="X ";
                 }
-
                 else if(p==1)
                 {
-                    winBoard[rowPos[colPos]][colPos-3]="O ";
+                        winBoard[rowPos[colPos]][colPos]="O ";
+                        winBoard[rowPos[colPos]][colPos-1]="O ";
                 }
                 colCount++;
-            }
+
+                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-2])
+                {
+                        if(p==0)
+                        {
+                                winBoard[rowPos[colPos]][colPos-2]="X ";
+                        }
+                        else if(p==1)
+                        {
+                                winBoard[rowPos[colPos]][colPos-2]="O ";
+                        }
+                        colCount++;
+
+                        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]][colPos-3])
+                        {
+                                if(p==0)
+                                {
+                                        winBoard[rowPos[colPos]][colPos-3]="X ";
+                                }
+
+                                else if(p==1)
+                                {
+                                        winBoard[rowPos[colPos]][colPos-3]="O ";
+                                }
+                                colCount++;
+                        }
+                }
         }
-    }
 
-    if(colCount>=4)
-    {
-        display(winBoard);
-        return true;
-    }
+        if(colCount>=4)
+        {
+                display(winBoard);
+                return true;
+        }
 
-    else
-    {
-        return false;
-    }
+        else
+        {
+                return false;
+        }
 }
 
 
 bool diagonalChecker(string board[6][7],int rowPos[7],int colPos,string playerName[2],int p)
 {
-    string winBoard[6][7];
+        string winBoard[6][7];
 
-    for(i=0;i<6;i++)
-    {
-        for(j=0;j<7;j++)
+        for(i=0; i<6; i++)
         {
-            winBoard[i][j]="_ ";
-        }
-    }
-
-    if(rowPos[colPos]<=2)
-    {
-        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos+1]) //bottom right
-        {
-            if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos+2])
-            {
-                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos+3])
+                for(j=0; j<7; j++)
                 {
-                    if(p==0)
-                    {
-                        for(i=0;i<4;i++)
-                        {
-                            winBoard[rowPos[colPos]+i][colPos+i]="X ";
-                        }
-                    }
-
-                    else if(p==1)
-                    {
-                        for(i=0;i<4;i++)
-                        {
-                            winBoard[rowPos[colPos]+i][colPos+i]="O ";
-                        }
-                    }
-                    display(winBoard);
-                    return true;
+                        winBoard[i][j]="_ ";
                 }
-            }
         }
 
-        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos-1]) //bottom left
+        if(rowPos[colPos]<=2)
         {
-            if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos-2])
-            {
-                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos-3])
+                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos+1]) //bottom right
                 {
-                    if(p==0)
-                    {
-                        for(i=0;i<4;i++)
+                        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos+2])
                         {
-                            winBoard[rowPos[colPos]+i][colPos-i]="X ";
-                        }
-                    }
+                                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos+3])
+                                {
+                                        if(p==0)
+                                        {
+                                                for(i=0; i<4; i++)
+                                                {
+                                                        winBoard[rowPos[colPos]+i][colPos+i]="X ";
+                                                }
+                                        }
 
-                    else if(p==1)
-                    {
-                        for(i=0;i<4;i++)
-                        {
-                            winBoard[rowPos[colPos]+i][colPos-i]="O ";
+                                        else if(p==1)
+                                        {
+                                                for(i=0; i<4; i++)
+                                                {
+                                                        winBoard[rowPos[colPos]+i][colPos+i]="O ";
+                                                }
+                                        }
+                                        display(winBoard);
+                                        return true;
+                                }
                         }
-                    }
-                    display(winBoard);
-                    return true;
                 }
-            }
+
+                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+1][colPos-1]) //bottom left
+                {
+                        if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+2][colPos-2])
+                        {
+                                if(board[rowPos[colPos]][colPos]==board[rowPos[colPos]+3][colPos-3])
+                                {
+                                        if(p==0)
+                                        {
+                                                for(i=0; i<4; i++)
+                                                {
+                                                        winBoard[rowPos[colPos]+i][colPos-i]="X ";
+                                                }
+                                        }
+
+                                        else if(p==1)
+                                        {
+                                                for(i=0; i<4; i++)
+                                                {
+                                                        winBoard[rowPos[colPos]+i][colPos-i]="O ";
+                                                }
+                                        }
+                                        display(winBoard);
+                                        return true;
+                                }
+                        }
+                }
         }
-    }
-    return false;
+        return false;
 }
 
 
 int playerChoice(string playerName[2],int p)
 {
-    cout<<"\nIt's your turn, "<<playerName[p]<<"! Which column do you want to play in?"<<endl;
+        cout<<"\nIt's your turn, "<<playerName[p]<<"! Which column do you want to play in?"<<endl;
 
-    while(true)
-    {
         while(true)
         {
-            cin>>colPos;
+                while(true)
+                {
+                        cin>>colPos;
 
-            if(cin.fail())
-            {
-                cin.clear();
-                cin.ignore();
-                cout<<"\nSorry, "<<playerName[p]<<" - please enter a valid column number between 1 & 7!"<<endl;
-            }
+                        if(cin.fail())
+                        {
+                                cin.clear();
+                                cin.ignore();
+                                cout<<"\nSorry, "<<playerName[p]<<" - please enter a valid column number between 1 & 7!"<<endl;
+                        }
 
-            else
-            {
-                break;
-            }
+                        else
+                        {
+                                break;
+                        }
+                }
+
+                if(colPos<1 || colPos>7)
+                {
+                        cout<<"\nSorry, "<<playerName[p]<<" - please enter a valid column number between 1 & 7!"<<endl;
+                }
+                else
+                {
+                        break;
+                }
         }
 
-        if(colPos<1 || colPos>7)
-        {
-            cout<<"\nSorry, "<<playerName[p]<<" - please enter a valid column number between 1 & 7!"<<endl;
-        }
-        else
-        {
-            break;
-        }
-    }
-
-    return colPos-1; //because array position counting starts from 0
+        return colPos-1; //because array position counting starts from 0
 }
 
 };
@@ -445,7 +445,7 @@ int playerChoice(string playerName[2],int p)
 
 int main()
 {
-    cout<<"\nWelcome to CONNECT FOUR by Urmil Shroff!"<<endl;
-    Board obj;
-    return 0;
+        cout<<"\nWelcome to CONNECT FOUR by Urmil Shroff!"<<endl;
+        Board obj;
+        return 0;
 }
